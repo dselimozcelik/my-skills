@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI-Native Task Tutor"
+  short_description: "Turn real codebase tasks into verified learning"
+  default_prompt: "Use $ai-native-task-tutor to deliver this codebase task while teaching and testing the required concepts."
