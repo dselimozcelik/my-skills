@@ -1,6 +1,6 @@
 ---
 name: teach
-description: Teach a durable skill or concept using the user's global learning profile, current codebase evidence, retrieval practice, and verified mastery updates. Use only when the user explicitly invokes teach or asks for a stateful lesson; for ordinary task delivery use ai-native-task-tutor, which may apply this skill's progress protocol.
+description: Teach and verify a backend concept when engineering-mentor detects a knowledge gap during repository exploration, task delivery, debugging, or review, or when the user requests direct learning. Use repository evidence and persistent learner state; never implement the parent task.
 license: MIT
 metadata:
   author: mattpocock
@@ -10,31 +10,34 @@ metadata:
 
 # Teach
 
-Teach statefully across repositories and AI tools. Resolve the learner's durable state once per session: use `AI_LEARNING_HOME` when set; otherwise use `$HOME/.ai-learning/backend-engineering` on POSIX systems or `%USERPROFILE%\.ai-learning\backend-engineering` on Windows. Never store it in the current product repository. Read the profile before choosing what to explain; update it only after the learner demonstrates evidence.
+Teach statefully across repositories and AI tools. Resolve the learner's durable state once per session: use `AI_LEARNING_HOME` when set; otherwise use `$HOME/.ai-learning/backend-engineering` on POSIX systems or `%USERPROFILE%\.ai-learning\backend-engineering` on Windows. Learner state lives under `learner/`; never store it in the current product repository. Read the profile before choosing what to explain; update it only after the learner demonstrates evidence.
+
+This skill is a learning engine, not a task orchestrator. Do not plan or implement the parent task, edit product source, approve a semantic block, or continue the parent workflow. Finish the learning gate and return control to `engineering-mentor`.
 
 This skill is adapted from Matt Pocock's `teach` skill. Preserve its mission grounding, zone of proximal development, retrieval practice, storage-strength focus, and compact learning records. Replace its assumption that the current directory is a course workspace with the global profile below.
 
 ## Global learning workspace
 
-Use these files and directories:
+Use these files and directories under `<learning-home>/learner/`:
 
 - `MISSION.md`: why the learner is building backend engineering ability and the observable outcomes that matter.
-- `NOTES.md`: stable teaching preferences and constraints.
+- `PREFERENCES.md`: stable teaching preferences and constraints.
 - `MASTERY.md`: canonical concept levels, evidence pointers, and the next proof required.
+- `LEARNING-QUEUE.md`: concepts discovered in repositories but intentionally deferred until they become useful.
 - `GLOSSARY.md`: compressed definitions only for concepts the learner has demonstrated.
 - `RESOURCES.md`: curated, high-trust primary sources and when to use them.
 - `learning-records/*.md`: immutable evidence-backed insights, numbered sequentially.
 - `sessions/*.md`: sanitized task-learning summaries; never proprietary code or data.
 - `reference/*`: optional reusable cheat sheets. Create only when repeated lookup proves useful.
 
-If the workspace is missing, create it from [MISSION-FORMAT.md](MISSION-FORMAT.md), [NOTES-FORMAT.md](NOTES-FORMAT.md), [MASTERY-FORMAT.md](MASTERY-FORMAT.md), [GLOSSARY-FORMAT.md](GLOSSARY-FORMAT.md), [RESOURCES-FORMAT.md](RESOURCES-FORMAT.md), and [SESSION-FORMAT.md](SESSION-FORMAT.md). Do not create lesson HTML by default. A real codebase task is the primary lesson surface; create a reference artifact only when the user will plausibly reuse it.
+If the workspace is missing, create it from [MISSION-FORMAT.md](MISSION-FORMAT.md), [PREFERENCES-FORMAT.md](PREFERENCES-FORMAT.md), [MASTERY-FORMAT.md](MASTERY-FORMAT.md), [LEARNING-QUEUE-FORMAT.md](LEARNING-QUEUE-FORMAT.md), [GLOSSARY-FORMAT.md](GLOSSARY-FORMAT.md), [RESOURCES-FORMAT.md](RESOURCES-FORMAT.md), and [SESSION-FORMAT.md](SESSION-FORMAT.md). Do not create lesson HTML by default. A real codebase task is the primary lesson surface; create a reference artifact only when the user will plausibly reuse it.
 
 ## Start every lesson from state
 
-1. Read `MISSION.md`, `NOTES.md`, and `MASTERY.md`.
+1. Read `MISSION.md`, `PREFERENCES.md`, and `MASTERY.md`.
 2. Read only the learning records and glossary entries relevant to the current task.
 3. Inspect the smallest relevant slice of the current codebase, diff, test, log, query, or message flow.
-4. Identify the one to three concepts that block the learner from verifying the current implementation step. Re-evaluate at the next step instead of front-loading the whole task.
+4. Teach the single concept handed off by `engineering-mentor`, or the smallest prerequisite that blocks it. Do not front-load the repository's concept list.
 5. Use current mastery to choose the entry point; do not restart from generic fundamentals automatically.
 
 Do not store company names, repository paths, source code, customer information, internal architecture, credentials, or production values in the global workspace. Abstract evidence into a portable statement such as "explained why a proxied transaction boundary can be bypassed by self-invocation."
@@ -65,16 +68,31 @@ Advance mastery only when the learner produces evidence. A green build, reading 
 
 ## Task-grounded teaching loop
 
-For each blocking concept:
+For the current blocking concept:
 
 1. **Retrieve first:** ask what the learner thinks the current code does or predict an observable result. Do not reveal the answer in the question.
 2. **Diagnose:** separate what is correct, missing, and mistaken. Name the missing causal link precisely.
 3. **Teach minimally:** explain only the knowledge required for the current task, grounded in actual repository evidence and a trusted primary source when framework behavior matters.
 4. **Apply:** have the learner use the concept on the current code path, test, query, or failure scenario.
-5. **Transfer:** ask one changed example that cannot be answered by repeating the explanation verbatim.
+5. **Transfer when needed:** use a changed example when explanation alone cannot prove the current gate.
 6. **Record:** update mastery and create a learning record only if the evidence satisfies the target level.
 
 Ask one gate question at a time. Do not answer a question just asked. Do not praise intelligence; give specific formative feedback about the reasoning used.
+
+For an ordinary semantic block, use no more than one to three high-signal causal questions. Add another question only when the learner's answer exposes a specific missing link; do not turn the gate into a broad quiz.
+
+## Return contract
+
+End the gate with this compact result and return control to `engineering-mentor`:
+
+```text
+Learning result: demonstrated | in-progress
+Evidence: ...
+Remaining gap: ...
+Mastery update: yes | no
+```
+
+When the result is `in-progress`, state the smallest missing causal link. Do not authorize implementation or proceed with the parent workflow.
 
 ## Zone of proximal development
 
@@ -97,11 +115,11 @@ After verified learning:
 
 If new evidence contradicts an older record, supersede rather than delete it. Never mark a concept as mastered merely because it was covered.
 
-## Relationship to task delivery
+## Relationship to the parent workflow
 
-When used with `ai-native-task-tutor`:
+When used with `engineering-mentor`:
 
-- that skill owns task scope, implementation, Digital Worker coordination, validation, and delivery status;
+- that skill owns repository exploration, semantic blocks, task scope, implementation, review, validation, repository memory, and delivery status;
 - this skill owns learner calibration, micro-lessons, mastery evidence, and global progress updates;
-- in local iterative mode, the learner checkpoint precedes implementation of that meaningful plan step;
-- in Digital Worker mode, one-shot implementation may finish remotely, but the pulled diff must be replayed locally through the relevant learning checkpoints before the task is reported learning-complete.
+- a demonstrated learning result and explicit user approval precede implementation of the current semantic block;
+- after returning the compact result, stop teaching and let `engineering-mentor` resume the parent workflow.

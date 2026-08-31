@@ -19,11 +19,13 @@ $LearningHome = if ($env:AI_LEARNING_HOME) {
 }
 
 New-Item -ItemType Directory -Force -Path $SkillsHome | Out-Null
-New-Item -ItemType Directory -Force -Path (Join-Path $LearningHome "learning-records") | Out-Null
-New-Item -ItemType Directory -Force -Path (Join-Path $LearningHome "sessions") | Out-Null
-New-Item -ItemType Directory -Force -Path (Join-Path $LearningHome "reference") | Out-Null
+New-Item -ItemType Directory -Force -Path (Join-Path $LearningHome "learner\learning-records") | Out-Null
+New-Item -ItemType Directory -Force -Path (Join-Path $LearningHome "learner\sessions") | Out-Null
+New-Item -ItemType Directory -Force -Path (Join-Path $LearningHome "learner\reference") | Out-Null
+New-Item -ItemType Directory -Force -Path (Join-Path $LearningHome "repositories") | Out-Null
+New-Item -ItemType Directory -Force -Path (Join-Path $LearningHome "active") | Out-Null
 
-$SkillNames = @("ai-native-task-tutor", "teach", "diagnosing-bugs")
+$SkillNames = @("engineering-mentor", "teach")
 
 foreach ($SkillName in $SkillNames) {
     $SourcePath = Join-Path $RepoRoot "skills\$SkillName"
@@ -52,13 +54,28 @@ foreach ($SkillName in $SkillNames) {
     }
 }
 
-Get-ChildItem -LiteralPath (Join-Path $RepoRoot "learning-profile-template") -Filter "*.md" | ForEach-Object {
-    $ProfilePath = Join-Path $LearningHome $_.Name
+Get-ChildItem -LiteralPath (Join-Path $RepoRoot "learning-profile-template\learner") -Filter "*.md" | ForEach-Object {
+    $ProfilePath = Join-Path (Join-Path $LearningHome "learner") $_.Name
     if (Test-Path -LiteralPath $ProfilePath) {
         Write-Host "Preserved existing profile file: $ProfilePath"
+    } elseif ($_.Name -eq "PREFERENCES.md" -and (Test-Path -LiteralPath (Join-Path $LearningHome "NOTES.md"))) {
+        $LegacyPath = Join-Path $LearningHome "NOTES.md"
+        Copy-Item -LiteralPath $LegacyPath -Destination $ProfilePath
+        Write-Host "Migrated legacy profile file: $LegacyPath -> $ProfilePath"
+    } elseif (Test-Path -LiteralPath (Join-Path $LearningHome $_.Name)) {
+        $LegacyPath = Join-Path $LearningHome $_.Name
+        Copy-Item -LiteralPath $LegacyPath -Destination $ProfilePath
+        Write-Host "Migrated legacy profile file: $LegacyPath -> $ProfilePath"
     } else {
         Copy-Item -LiteralPath $_.FullName -Destination $ProfilePath
         Write-Host "Created profile file: $ProfilePath"
+    }
+}
+
+@("ai-native-task-tutor", "diagnosing-bugs") | ForEach-Object {
+    $LegacySkillPath = Join-Path $SkillsHome $_
+    if (Test-Path -LiteralPath $LegacySkillPath) {
+        Write-Host "Legacy skill remains installed and should be removed after review: $LegacySkillPath"
     }
 }
 

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Engineering Mentor"
+  short_description: "Own codebase work while learning it"
+  default_prompt: "Use $engineering-mentor to understand or change this codebase through approved semantic blocks and persistent learning checkpoints."
+policy:
+  allow_implicit_invocation: true

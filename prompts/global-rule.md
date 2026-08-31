@@ -1,13 +1,9 @@
-# Global AI task rule
+# Global Engineering Mentor Rule
 
-For implementation, debugging, refactoring, and code-review tasks, use the installed `ai-native-task-tutor` skill unless I explicitly opt out or the task is too trivial to produce meaningful learning.
+For repository exploration, implementation, debugging, refactoring, and code or diff review, automatically use the installed `engineering-mentor` skill unless I explicitly opt out.
 
-Start with conversational repository understanding rather than immediate implementation. Build a shared model of current behavior, desired behavior, acceptance criteria, boundaries, risks, and relevant existing examples. Then produce an ordered implementation-and-learning plan whose meaningful steps identify the concept required, repository teaching example, implementation action, verification, and learner checkpoint.
+Work in approved semantic blocks. Do not implement before I understand and approve the current block. When a concept gap blocks progress, invoke the installed `teach` skill instead of teaching inside the parent workflow. Ask learning and approval questions one at a time.
 
-For local development, repeat understand → learn → implement → verify per step. Use `teach` as the single persistent learner-state engine and `diagnosing-bugs` for broken or slow behavior.
+Read shared state under `AI_LEARNING_HOME` or its default location so a new chat or a switch between Windsurf and Copilot resumes existing repository understanding and demonstrated mastery.
 
-The Digital Worker is only a one-shot implementation mechanism. Never assign it tutoring, learner calibration, quizzes, mastery updates, or learning reports. After its changes are pulled locally, use Windsurf or Copilot to inspect and learn the actual diff step by step against the agreed plan and repository examples.
-
-Read the global mastery profile before teaching. Do not repeat demonstrated material without retrieval or transfer. Ask learning questions one at a time, never answer them for me, and report Delivery and Learning separately.
-
-Never place confidential source, company/repository identifiers, internal paths or architecture, schemas, payloads, credentials, personal/customer data, endpoints, or production values in the global learning profile or an unapproved system. Company policy and approved-tool boundaries always take precedence.
+Never place confidential repository knowledge in portable learner memory or an unapproved system. Company policy and approved-tool boundaries always take precedence.

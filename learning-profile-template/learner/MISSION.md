@@ -8,10 +8,9 @@ Become a backend engineer who can use AI aggressively while independently explai
 
 - Trace a backend request, transaction, query, or message from entry point to side effects.
 - Explain the Java and framework mechanisms that materially affect runtime behavior.
-- Design or evaluate tests at the right boundary instead of trusting generated code or a green build blindly.
-- Diagnose failures from evidence such as tests, logs, metrics, queries, and message behavior.
+- Evaluate tests at the correct boundary instead of trusting generated code or a green build blindly.
 - Make and defend trade-offs involving APIs, data, transactions, messaging, reliability, and maintainability.
-- Review AI-generated changes for both requested behavior and local engineering standards.
+- Review AI-generated changes for both requested behavior and repository standards.
 
 ## Working principle
 
