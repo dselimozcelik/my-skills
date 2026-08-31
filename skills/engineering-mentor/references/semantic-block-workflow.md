@@ -8,7 +8,7 @@ Show current behavior, the exact boundary, the closest repository example, the i
 
 ## 2. Learning gate
 
-List only concepts that causally block ownership of this block. Invoke `teach` for the smallest gap. Do not implement while the learning result is `in-progress`.
+Derive concepts from the current behavior, changed boundary, concrete symbols, configuration, tests, and expected runtime effect. Do not consult a predefined curriculum or use mastery rows as a topic list. List only concepts that causally block ownership of this block, then invoke `teach` for the smallest gap. Do not implement while the learning result is `in-progress`.
 
 ## 3. Approval gate
 

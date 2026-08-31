@@ -36,7 +36,7 @@ Read [references/memory-layout.md](references/memory-layout.md) when state is mi
 
 ## Repository understanding mode
 
-Read [references/repository-understanding.md](references/repository-understanding.md). Scan in layers, build the architecture and main-flow model, then extract a dependency-aware concept map. Read only the relevant sections of [references/backend-concept-routing.md](references/backend-concept-routing.md) to avoid missing causal prerequisites. Classify concepts as `required now`, `required soon`, or `later` and compare them with demonstrated mastery.
+Read [references/repository-understanding.md](references/repository-understanding.md). Scan in layers, build the architecture and main-flow model, then derive a dependency-aware concept map only from repository evidence. Classify those discovered concepts as `required now`, `required soon`, or `later` and compare them with demonstrated mastery.
 
 Discover broadly but teach narrowly. Invoke `teach` only for the smallest concept currently blocking the selected repository flow. Repository understanding is read-only unless the learner separately approves a change.
 
@@ -44,7 +44,7 @@ Discover broadly but teach narrowly. Invoke `teach` only for the smallest concep
 
 Before planning, establish a shared model of current behavior, desired behavior, acceptance criteria, out-of-scope behavior, likely failures, and validation. Then split the work into semantic blocks: each block changes one coherent behavior or boundary, regardless of how many files it touches.
 
-For every block follow [references/semantic-block-workflow.md](references/semantic-block-workflow.md). Use the relevant section of [references/backend-concept-routing.md](references/backend-concept-routing.md) when selecting a learning gate. The fixed gates are:
+For every block follow [references/semantic-block-workflow.md](references/semantic-block-workflow.md). Derive learning gates from the actual code path, configuration, tests, diff, and runtime behavior of that block. The fixed gates are:
 
 ```text
 orient → teach if needed → understanding check → user approval
