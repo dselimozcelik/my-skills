@@ -26,11 +26,13 @@ Use these files and directories under `<learning-home>/learner/`:
 - `LEARNING-QUEUE.md`: concepts discovered in repositories but intentionally deferred until they become useful.
 - `GLOSSARY.md`: compressed definitions only for concepts the learner has demonstrated.
 - `RESOURCES.md`: curated, high-trust primary sources and when to use them.
+- `lessons/*.html`: self-contained, reusable lesson artifacts created from actual teaching gates.
+- `lessons/index.html`: navigable index of generated lessons.
 - `learning-records/*.md`: immutable evidence-backed insights, numbered sequentially.
 - `sessions/*.md`: sanitized task-learning summaries; never proprietary code or data.
 - `reference/*`: optional reusable cheat sheets. Create only when repeated lookup proves useful.
 
-If the workspace is missing, create it from [MISSION-FORMAT.md](MISSION-FORMAT.md), [PREFERENCES-FORMAT.md](PREFERENCES-FORMAT.md), [MASTERY-FORMAT.md](MASTERY-FORMAT.md), [LEARNING-QUEUE-FORMAT.md](LEARNING-QUEUE-FORMAT.md), [GLOSSARY-FORMAT.md](GLOSSARY-FORMAT.md), [RESOURCES-FORMAT.md](RESOURCES-FORMAT.md), and [SESSION-FORMAT.md](SESSION-FORMAT.md). Do not create lesson HTML by default. A real codebase task is the primary lesson surface; create a reference artifact only when the user will plausibly reuse it.
+If the workspace is missing, create it from [MISSION-FORMAT.md](MISSION-FORMAT.md), [PREFERENCES-FORMAT.md](PREFERENCES-FORMAT.md), [MASTERY-FORMAT.md](MASTERY-FORMAT.md), [LEARNING-QUEUE-FORMAT.md](LEARNING-QUEUE-FORMAT.md), [GLOSSARY-FORMAT.md](GLOSSARY-FORMAT.md), [RESOURCES-FORMAT.md](RESOURCES-FORMAT.md), and [SESSION-FORMAT.md](SESSION-FORMAT.md). Create `lessons/` when the first lesson artifact is written.
 
 ## Start every lesson from state
 
@@ -75,11 +77,24 @@ For the current blocking concept:
 3. **Teach minimally:** explain only the knowledge required for the current task, grounded in actual repository evidence and a trusted primary source when framework behavior matters.
 4. **Apply:** have the learner use the concept on the current code path, test, query, or failure scenario.
 5. **Transfer when needed:** use a changed example when explanation alone cannot prove the current gate.
-6. **Record:** update mastery and create a learning record only if the evidence satisfies the target level.
+6. **Create the lesson artifact:** after the learner's first attempt and the necessary explanation, create or update the concept's self-contained HTML lesson using [HTML-LESSON-FORMAT.md](HTML-LESSON-FORMAT.md). Do not wait for mastery to be demonstrated; the artifact records the lesson, while mastery records evidence.
+7. **Record:** update mastery and create a learning record only if the evidence satisfies the target level.
 
 Ask one gate question at a time. Do not answer a question just asked. Do not praise intelligence; give specific formative feedback about the reasoning used.
 
 For an ordinary semantic block, use no more than one to three high-signal causal questions. Add another question only when the learner's answer exposes a specific missing link; do not turn the gate into a broad quiz.
+
+## HTML lesson artifact
+
+When this skill delivers or materially corrects an explanation, it must create or update `<learning-home>/learner/lessons/<concept-slug>.html` and update `lessons/index.html`. The HTML is part of the durable learning output, not a replacement for retrieval and explain-back.
+
+- Build a self-contained HTML file with inline CSS and no external scripts, fonts, images, or analytics.
+- Make it readable as a standalone lesson: mental model, why it mattered now, causal flow, sanitized example, common failure, and compact self-check.
+- Put self-check answers inside collapsed `<details>` elements so the page does not reveal them immediately.
+- Generalize repository teaching evidence. Never include company/repository/service/class/table names, source code, local paths, internal architecture, payloads, credentials, customer data, endpoints, or production values.
+- Prefer one canonical file per concept. Update it when understanding deepens instead of creating near-duplicate dated files.
+- After writing, give the learner a clickable absolute path and open/show the file when the host supports it.
+- A generated HTML file proves that teaching occurred, not that learning was demonstrated.
 
 ## Return contract
 
@@ -90,6 +105,7 @@ Learning result: demonstrated | in-progress
 Evidence: ...
 Remaining gap: ...
 Mastery update: yes | no
+Lesson artifact: <absolute path>
 ```
 
 When the result is `in-progress`, state the smallest missing causal link. Do not authorize implementation or proceed with the parent workflow.
@@ -111,7 +127,8 @@ After verified learning:
 1. update the concept row in `MASTERY.md` with level, date, sanitized evidence, and next proof;
 2. add a sequential learning record using [LEARNING-RECORD-FORMAT.md](LEARNING-RECORD-FORMAT.md) when the insight is non-trivial, a misconception was corrected, or prior knowledge was established;
 3. add or revise a glossary definition only after the learner can use the term correctly;
-4. append a short sanitized session record when the lesson came from a real task.
+4. create or update the canonical HTML lesson and lesson index whenever teaching content was delivered or corrected;
+5. append a short sanitized session record when the lesson came from a real task.
 
 If new evidence contradicts an older record, supersede rather than delete it. Never mark a concept as mastered merely because it was covered.
 

@@ -10,6 +10,7 @@ Amaç, AI ile hızlı çalışırken her önemli davranışı anlayabilmek, revi
 - Kavramları `required now`, `required soon` ve `later` olarak önceliklendirir.
 - Codebase gereksinimleriyle Selim'in kanıtlanmış mastery profilini karşılaştırır.
 - Eksik kavramı ihtiyaç anında `teach` skill'ine otomatik devreder.
+- Her gerçek öğretim kapısında kalıcı, self-contained bir HTML ders üretir ve `learner/lessons/` altında indeksler.
 - Task'ları anlamsal bloklara ayırır; öğrenme ve açık onay olmadan implementasyona geçmez.
 - Her bloktan sonra gerçek diff'i review eder, Selim'den explain-back ister ve doğrulamanın sınırını açıklar.
 - Repo anlayışını ve öğrenme ilerlemesini repo dışında saklar; yeni chat veya araç değişiminde kaldığı yerden devam eder.
@@ -33,7 +34,7 @@ Git ile güncellenen skill paketi       Şirket bilgisayarındaki kalıcı durum
                                        └── active/
 ```
 
-`learner/` taşınabilir ve sanitize edilmiş yetkinlik kanıtlarını tutar. `repositories/` şirkete özgü yerel mimari ve akış bilgisini tutar; kişisel Git reposuna veya dış servise gönderilmez. `active/`, yeni chat'in yarım kalan anlamsal bloktan devam etmesini sağlar.
+`learner/` taşınabilir ve sanitize edilmiş yetkinlik kanıtlarını, öğrenme kuyruğunu ve HTML dersleri tutar. `repositories/` şirkete özgü yerel mimari ve akış bilgisini tutar; kişisel Git reposuna veya dış servise gönderilmez. `active/`, yeni chat'in yarım kalan anlamsal bloktan devam etmesini sağlar.
 
 ## Ana workflow
 

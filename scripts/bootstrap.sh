@@ -27,6 +27,7 @@ mkdir -p "$skills_home"
 mkdir -p "$learning_home/learner/learning-records" \
   "$learning_home/learner/sessions" \
   "$learning_home/learner/reference" \
+  "$learning_home/learner/lessons" \
   "$learning_home/repositories" \
   "$learning_home/active"
 

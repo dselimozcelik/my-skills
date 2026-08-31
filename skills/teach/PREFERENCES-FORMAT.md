@@ -7,6 +7,7 @@
 - Explanation style: ...
 - Learning gate style: one question at a time
 - Feedback preference: direct, causal, and specific
+- Lesson artifact: self-contained HTML under `learner/lessons/`
 - Time or cognitive-load constraints: ...
 - Security constraints: never persist company or customer information here
 ```

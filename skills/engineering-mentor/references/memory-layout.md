@@ -11,6 +11,7 @@ Resolve `AI_LEARNING_HOME`, falling back to the platform-specific `~/.ai-learnin
 │   ├── LEARNING-QUEUE.md
 │   ├── GLOSSARY.md
 │   ├── RESOURCES.md
+│   ├── lessons/
 │   ├── learning-records/
 │   └── sessions/
 ├── repositories/<repo-id>/

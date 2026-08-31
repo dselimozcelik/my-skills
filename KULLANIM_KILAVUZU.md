@@ -102,6 +102,7 @@ Başarı kanıtı:
 - Soruları birer birer sorar.
 - Normal bir gate'te en fazla 1–3 yüksek sinyalli nedensel soru kullanır.
 - Level 2–3 konuyu baştan anlatmadan önce retrieval/transfer kontrolü yapar.
+- Bir açıklama verdiğinde veya yanlış mental modeli düzelttiğinde `learner/lessons/<concept>.html` dersini ve `lessons/index.html` indeksini oluşturur/günceller.
 - “Anladım”, açıklamayı okumak veya yeşil build'i mastery saymaz.
 - Yalnızca gösterilmiş ve sanitize edilmiş yetkinliği kaydeder.
 
@@ -112,6 +113,7 @@ Learning result: demonstrated | in-progress
 Evidence: ...
 Remaining gap: ...
 Mastery update: yes | no
+Lesson artifact: <absolute path>
 ```
 
 `in-progress` sonucunda mentor implementasyona devam etmez.

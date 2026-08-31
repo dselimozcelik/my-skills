@@ -22,6 +22,7 @@ New-Item -ItemType Directory -Force -Path $SkillsHome | Out-Null
 New-Item -ItemType Directory -Force -Path (Join-Path $LearningHome "learner\learning-records") | Out-Null
 New-Item -ItemType Directory -Force -Path (Join-Path $LearningHome "learner\sessions") | Out-Null
 New-Item -ItemType Directory -Force -Path (Join-Path $LearningHome "learner\reference") | Out-Null
+New-Item -ItemType Directory -Force -Path (Join-Path $LearningHome "learner\lessons") | Out-Null
 New-Item -ItemType Directory -Force -Path (Join-Path $LearningHome "repositories") | Out-Null
 New-Item -ItemType Directory -Force -Path (Join-Path $LearningHome "active") | Out-Null
 
