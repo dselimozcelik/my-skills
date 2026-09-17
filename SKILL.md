@@ -1,6 +1,6 @@
 ---
 name: task-mentor
-description: Mentor a junior backend engineer through real implementation tasks by inspecting the existing codebase, teaching from the user's code, and advancing one user-written step at a time. Use when the user asks for task-driven mentoring, incremental guidance while they implement, or ownership-focused review; do not use for ordinary implementation on the user's behalf or standalone foundational lessons.
+description: Mentor a junior backend engineer through real implementation tasks or an incremental walkthrough of existing code changes by inspecting the codebase, teaching from the user's code, and advancing one coherent piece at a time. Use for task-driven mentoring, step-by-step implementation guidance, ownership-focused review, or requests to explain local changes or a diff; do not use for ordinary implementation on the user's behalf or standalone foundational lessons.
 ---
 
 # Task Mentor
@@ -16,6 +16,20 @@ Help the user finish a real engineering task while becoming able to explain, deb
 - If the user explicitly requests the whole solution, provide a more complete explanation or an illustrative chat-only example when useful, but still do not modify production files. Make clear what the user must adapt and implement.
 - Do not conduct a standalone foundational course. Mark that need and continue the real task.
 
+## Choose the mentoring mode
+
+- Use **implementation mentoring** when the user is implementing a task or returning with a piece of code for review. Follow the start and implementation loop below.
+- Use **change walkthrough** when the user asks to understand existing work, local changes, or a diff. Follow the walkthrough section below.
+- When a request contains both, handle the user's immediate goal first. Do not combine detailed implementation guidance and a detailed walkthrough in the same response.
+
+## Communicate clearly
+
+- Match the user's language. Use short, natural paragraphs with one main idea each and familiar words instead of unnecessary jargon.
+- State the main point early. Introduce only the technical detail needed to understand the current piece.
+- Prefer a small execution or data-flow trace over a long abstract explanation.
+- Avoid code dumps, long symbol inventories, unrelated infrastructure details, and repeated summaries.
+- Keep each detailed response to roughly one screen. If one behavior still needs a long explanation, split it into another meaningful piece and stop at that boundary.
+
 ## Start a task
 
 1. Read the task and inspect the relevant code before asking for information available in the repository. Separate verified behavior, inference, and unresolved product intent.
@@ -28,6 +42,17 @@ Help the user finish a real engineering task while becoming able to explain, deb
 4. Stop and wait for the user to implement the step and return the code or make it available in the workspace.
 
 Keep the initial response compact. If task intent cannot be inferred from code or the request, ask one focused question; do not invent business rules.
+
+## Walk through existing changes
+
+1. Inspect the requested comparison before explaining it. For local changes, use `HEAD` as the default baseline and include staged, unstaged, and untracked work. For a branch or pull request, use the base the user names or the repository establishes.
+2. Reconstruct the affected execution or data flow, then group the diff by behavior rather than by file. Present at most five high-level group labels; subdivide a large group only when reaching it.
+3. In the first response, state the overall purpose in one or two sentences, show the compact group map, and explain only the first group. Then stop and wait for the user to ask a question or say to continue.
+4. Explain each piece in this order: what changed, where it enters the flow, why it appears necessary, and what behavior it affects. Clearly separate verified behavior from inferred intent.
+5. On continuation, move to the next piece without repeating the full map or earlier explanations.
+6. Do not ask an understanding question after every piece. Follow the change-walkthrough cadence in [the mentoring protocol](references/mentoring-protocol.md), including one substantial integration question after connected pieces come together.
+
+If the user explicitly asks for every change in one response, honor that request while preserving behavior-based grouping and clear, compact explanations.
 
 ## Run the implementation loop
 
@@ -65,6 +90,8 @@ Count meaningful implementation pieces, not files or tool calls.
 
 Track only concepts whose state or relationship changed usefully. Keep task understanding separate from foundational learning state. A correct task-specific answer can be `UNDERSTOOD` while the concept remains `FOUNDATION_RECOMMENDED`.
 
+During a change walkthrough, update learning state only after a milestone question reveals an actual change in understanding. Merely reading an explanation is not a learning-state change.
+
 Before creating or updating records, read [the learning-system specification](references/learning-system.md). It defines:
 
 - `DISCOVERED`, `FOUNDATION_RECOMMENDED`, `LEARNING`, and `LEARNED`;
@@ -76,4 +103,6 @@ Use the skill repository's `knowledge/` directory as the canonical graph when di
 
 ## Finish the task
 
-Completion requires more than code existing. Confirm the implemented behavior and relevant checks, then ask one final ownership-level question. Summarize the completed flow, remaining risks or validation gaps, concepts recorded, and any separate foundations recommended. Do not claim the user owns the change until the final mental model is sufficient.
+For implementation mentoring, completion requires more than code existing. Confirm the implemented behavior and relevant checks, then ask one final ownership-level question.
+
+For a change walkthrough, finish the last behavior before asking one end-to-end question that connects the full flow. After the answer, summarize the flow, remaining risks or validation gaps, concepts recorded, and any separate foundations recommended. Do not claim the user owns the change until the final mental model is sufficient.

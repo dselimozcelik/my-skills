@@ -1,6 +1,6 @@
 # Mentoring protocol
 
-Use this protocol for a multi-step implementation task and whenever evaluating an understanding answer.
+Use this protocol for a multi-step implementation task, a walkthrough of existing changes, and whenever evaluating an understanding answer.
 
 ## One-piece turn cycle
 
@@ -15,6 +15,20 @@ Treat a piece as a coherent behavior the user can implement and verify, not as a
 7. **Advance:** only after the response shows sufficient ownership and blocking code issues are resolved.
 
 Do not repeat the full roadmap on every turn. State the current piece and the next transition.
+
+## Change walkthrough cycle
+
+Use this cycle when the user asks to understand existing changes rather than implement the next piece.
+
+1. **Map:** inspect the complete comparison and group it into at most five high-level behaviors. In the opening response, keep the map to labels and explain only the first behavior.
+2. **Trace:** connect the current behavior to the relevant execution or data flow. Cover what changed, where it takes effect, why it appears necessary, and its observable impact.
+3. **Pause:** stop after one coherent piece. Do not add a quiz merely to fill the turn.
+4. **Continue:** when the user asks to proceed, explain the next piece without repeating completed material.
+5. **Connect:** after roughly 3–5 pieces or when a coherent subsystem comes together, ask one integration question and wait for the answer before continuing.
+
+The integration question should be a realistic, bounded scenario that takes about 5–10 minutes of reasoning. Ask the user to trace, predict, justify, or choose a debugging entry point across the connected changes. Keep it to one coherent question rather than a multi-part exam.
+
+If the user explicitly requests a single complete explanation, cover all groups in one response but retain the same order, behavior-level grouping, and separation between verified behavior and inferred intent.
 
 ## Understanding outcomes
 
@@ -42,7 +56,7 @@ Avoid definitions, trivia, multi-part quizzes, and concepts not encountered in t
 
 ## Integration and milestone cadence
 
-Track meaningful pieces informally. After 3–5 pieces or completion of a subsystem, use the turn's single question to connect them. At a major milestone or task completion, use the single question to test end-to-end ownership. Reset the integration count when a coherent subsystem has been checked.
+Track meaningful pieces informally. In implementation mentoring, after 3–5 pieces or completion of a subsystem, replace the normal piece question with one question that connects them. In a change walkthrough, skip piece-level questions and ask only at that integration point. At a major milestone or task completion, use one question to test end-to-end ownership. Reset the integration count when a coherent subsystem has been checked.
 
 ## Review response shape
 

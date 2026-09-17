@@ -1,6 +1,6 @@
 # Task Mentor for GitHub Copilot and Windsurf
 
-`task-mentor` turns GitHub Copilot or Windsurf Cascade into a senior mentor for real engineering tasks. It inspects the existing system, gives one implementation step at a time, reviews the code you write, checks your mental model, and tracks only useful learning signals. It never edits production code for you.
+`task-mentor` turns GitHub Copilot or Windsurf Cascade into a senior mentor for real engineering tasks. It gives one implementation step at a time or walks through existing changes one coherent piece at a time, reviews the code you write, checks your mental model at useful milestones, and tracks only meaningful learning signals. It never edits production code for you.
 
 ## Install once for both
 
@@ -34,6 +34,14 @@ In Windsurf Cascade, invoke it directly with:
 ```
 
 The mentor maps the relevant flow and shows a concise roadmap, but details only Step 1. You implement that step, return with the code, answer one ownership-focused question, and continue when your mental model is sufficient. Important foundations are marked for later study rather than expanded into a separate course.
+
+To understand work that already exists, ask:
+
+```text
+Use the task-mentor skill. Explain my local changes step by step. Keep each part small and wait for me to say continue.
+```
+
+For local changes, the mentor compares staged, unstaged, and untracked work with `HEAD`. It groups the diff by behavior rather than listing files, gives a compact map of at most five groups, explains only the first group, and waits. After several connected pieces form a meaningful flow, it asks one realistic question that should take about 5–10 minutes of reasoning.
 
 ## Learning tracking
 
