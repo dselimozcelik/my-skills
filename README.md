@@ -8,6 +8,7 @@ Amaç: AI'ı cevap makinesi olarak değil, beni aktif tutan bir hoca ve reviewer
 
 | Durum | Prompt |
 |---|---|
+| Her zaman: AI araçlarının genel talimatlarına bir kez eklenir | [00 — Beni tanı](prompts/00-beni-tani.md) |
 | Projede bir sürü bilmediğim şey var, nereden başlayacağımı bilmiyorum | [01 — Öğrenme haritası](prompts/01-ogrenme-haritasi.md) |
 | Bir kavramı / teknolojiyi öğrenmek istiyorum | [02 — Hoca](prompts/02-hoca.md) |
 | Kodu okudum, anladığımı düşünüyorum, kontrol ettirmek istiyorum | [03 — Ben anlatayım](prompts/03-ben-anlatayim.md) |
