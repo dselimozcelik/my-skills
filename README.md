@@ -15,6 +15,7 @@ Amaç: AI'ı cevap makinesi olarak değil, beni aktif tutan bir hoca ve reviewer
 | Yeni bir görev geldi, kodlamaya başlamadan önce | [04 — Planımı eleştir](prompts/04-planimi-elestir.md) |
 | Takıldım ama çözümü görmek istemiyorum | [05 — İpucu ver](prompts/05-ipucu-ver.md) |
 | Kodu kendim yazdım, review istiyorum | [06 — Kodumu review et](prompts/06-kodumu-review-et.md) |
+| Bilmediğim bir teknolojide AI'a iş yaptırdım, repoyu ve yazılan kodu baştan anlamak istiyorum | [07 — Repoyu ve ekranımı öğret](prompts/07-repo-ve-ekranimi-ogret.md) |
 
 ## Kurallarım
 
